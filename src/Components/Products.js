@@ -147,7 +147,6 @@ export default function Products() {
                 <div className="product-card h-100 rounded-4 overflow-hidden">
                   <div className="product-image ratio ratio-4x3">
                     <img src={item.image} alt={item.name} className="w-100 h-100" />
-                    {item.badge && <span className="product-badge">{item.badge}</span>}
                   </div>
                   <div className="p-3 d-grid gap-2">
                     <div className="d-flex justify-content-between align-items-start gap-2">

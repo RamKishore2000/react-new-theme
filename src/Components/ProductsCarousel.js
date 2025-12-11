@@ -66,7 +66,6 @@ export default function ProductsCarousel() {
             <div key={item.id} className="product-tile rounded-4 overflow-hidden shadow-sm">
               <div className="ratio ratio-4x3">
                 <img src={item.image} alt={item.name} className="w-100 h-100 object-fit-cover" />
-                {item.badge && <span className="product-tile-badge">{item.badge}</span>}
               </div>
               <div className="p-3 d-grid gap-2">
                 <div className="d-flex justify-content-between align-items-start gap-2">
