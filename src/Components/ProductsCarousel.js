@@ -33,7 +33,7 @@ export default function ProductsCarousel() {
 
   return (
     <section className="products-carousel-section py-5">
-      <div className="container position-relative">
+      <div className="container-fluid position-relative px-0">
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
           <div>
             <p className="text-uppercase text-muted small mb-1">Browse</p>
