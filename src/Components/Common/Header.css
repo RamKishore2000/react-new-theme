@@ -1,0 +1,193 @@
+.mega-dropdown {
+  position: absolute !important;
+  z-index: 1050;
+  left: 16px !important;
+  right: auto !important;
+  width: auto;
+  max-width: min(1200px, calc(100vw - 32px));
+  transform: none !important;
+  border-radius: 12px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mobile-menu-panel {
+  width: 78vw;
+  max-width: 360px;
+  background: #fff;
+  height: 100%;
+  padding: 1.25rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mobile-menu-link {
+  display: block;
+  padding: 0.65rem 0;
+  color: #212529;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.mobile-menu-accordion {
+  border-bottom: 1px solid #f1f3f5;
+  padding: 0.35rem 0;
+}
+
+.mobile-menu-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0.65rem 0;
+  font-weight: 600;
+}
+
+.mobile-menu-children {
+  padding: 0 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mobile-panel {
+  padding: 0.25rem 0 0.5rem;
+}
+
+.mega-panel {
+  display: flex;
+  gap: 1.5rem;
+  min-height: 200px;
+}
+
+.mega-categories {
+  min-width: 220px;
+  max-width: 260px;
+  border-right: 1px solid #e9ecef;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mega-category-btn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.mega-category-btn:hover,
+.mega-category-btn:focus {
+  background-color: #f1f5ff;
+  border-color: #d7e3ff;
+}
+
+.mega-category-btn.active {
+  background-color: #e7f0ff;
+  border-color: #b8d0ff;
+  color: #0d6efd;
+}
+
+.mega-subcategories {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem 1.5rem;
+  max-height: 360px;
+  overflow-y: auto;
+  align-content: start;
+}
+
+.mega-link {
+  color: #212529;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.mega-link:hover,
+.mega-link:focus {
+  color: #0d6efd;
+  background-color: #f1f5ff;
+}
+
+/* Mobile accordion view */
+@media (max-width: 991.98px) {
+  .mega-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    max-width: none;
+    padding: 1.25rem;
+  }
+
+  .mega-panel {
+    display: none;
+  }
+
+  .mega-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mega-accordion-item {
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .mega-accordion-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .mega-accordion-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .mega-accordion-body {
+    padding: 0 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
+
+/* Desktop hover: show dropdowns on mouseover while keeping click for touch */
+@media (min-width: 992px) {
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+}
