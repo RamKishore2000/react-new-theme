@@ -1,0 +1,91 @@
+.contact-page {
+  padding: 60px 0;
+  background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 60%, #f8f9ff 100%);
+}
+
+.contact-hero {
+  margin-bottom: 24px;
+}
+
+.contact-card {
+  background: #ffffff;
+  border: 1px solid #e9edf5;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.map-shell {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #dfe4ef;
+  margin-bottom: 16px;
+}
+
+.map {
+  width: 100%;
+  min-height: 250px;
+}
+
+.contact-list {
+  display: grid;
+  gap: 10px;
+}
+
+.contact-list .label {
+  display: inline-block;
+  min-width: 80px;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+.contact-list .link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.contact-list .link:hover {
+  text-decoration: underline;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.social-btn {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #dbe3f5;
+  background: #f6f8fd;
+  color: #1b3a6b;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #e6eeff;
+  border-color: #c9d8ff;
+}
+
+.form-default .form-label {
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.tf-btn.btn-primary {
+  background: linear-gradient(135deg, #0d6efd, #3a7bff);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(13, 110, 253, 0.3);
+}
+
+.tf-btn.btn-primary:hover {
+  background: linear-gradient(135deg, #0b5ed7, #2f6ce6);
+  transform: translateY(-1px);
+}

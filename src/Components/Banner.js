@@ -1,61 +1,75 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
-import "./Banner.css";
+import "../css/Banner.css";
 
-const mockFetchBanners = () =>
-  new Promise((resolve) => {
-    setTimeout(
-      () =>
-        resolve([
-          {
-            id: 1,
-            title: "Fresh arrivals",
-            subtitle: "Curated picks for work, play, and travel.",
-            image:
-              "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80",
-            cta: "Shop now",
-            to: "/products",
-          },
-          {
-            id: 2,
-            title: "Services that scale",
-            subtitle: "Consulting, delivery, and support tailored to you.",
-            image:
-              "https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=1600&q=80",
-            cta: "View services",
-            to: "/services",
-          },
-          {
-            id: 3,
-            title: "Member perks",
-            subtitle: "Exclusive offers and early access for loyal customers.",
-            image:
-              "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=80",
-            cta: "Join now",
-            to: "/account",
-          },
-        ]),
-      400
-    );
-  });
+const normalizeBanner = (item, index) => {
+  const image =
+    item?.image ||
+    item?.banner_image ||
+    item?.banner ||
+    item?.img ||
+    item?.img_url ||
+    item?.picture ||
+    item?.url ||
+    item?.src ||
+    "";
+  const to = item?.link || item?.to || item?.url || "#";
+  return {
+    id: item?.id || item?.banner_id || item?.uuid || index,
+    title: item?.title || item?.heading || "",
+    subtitle: item?.subtitle || item?.subheading || "",
+    image,
+    to,
+    alt: item?.alt || item?.title || "slider image",
+  };
+};
 
 export default function Banner() {
   const [banners, setBanners] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [businessId, setBusinessId] = useState(() => localStorage.getItem("id"));
 
   useEffect(() => {
-    let mounted = true;
-    mockFetchBanners().then((data) => {
-      if (mounted) {
-        setBanners(data);
+    const interval = setInterval(() => {
+      const id = localStorage.getItem("id");
+      if (id) {
+        clearInterval(interval);
+        setBusinessId(id);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!businessId) return;
+
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch("https://topiko.com/prod/app/getSubdomainHomeBanners.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ business_id: businessId }),
+        });
+
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const normalized = data
+            .map((item, index) => normalizeBanner(item, index))
+            .filter((item) => item.image);
+          setBanners(normalized);
+        } else {
+          setBanners([]);
+        }
+      } catch (error) {
+        setBanners([]);
+      } finally {
         setLoading(false);
       }
-    });
-    return () => {
-      mounted = false;
     };
-  }, []);
+
+    fetchBanners();
+  }, [businessId]);
 
   const hasSlides = banners.length > 0;
 
@@ -95,7 +109,7 @@ export default function Banner() {
               {banners.map((slide) => (
                 <div key={slide.id} className="swiper-slide w-100 flex-shrink-0 position-relative">
                   <NavLink to={slide.to} aria-label={slide.title}>
-                    <img className="banner-image" src={slide.image} alt={slide.title} />
+                    <img className="banner-image" src={slide.image} alt={slide.alt || slide.title} />
                   </NavLink>
                 </div>
               ))}

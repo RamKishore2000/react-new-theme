@@ -1,6 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import "./Footer.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../../css/Footer.css";
 
 const icons = {
   location:
@@ -26,29 +27,74 @@ const Icon = ({ name }) => (
 );
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const businessName = localStorage.getItem("business_name") || "Our Business";
+  const address =
+    localStorage.getItem("businessadrees") ||
+    localStorage.getItem("business_address") ||
+    "";
+  const city = localStorage.getItem("city") || "";
+  const state = localStorage.getItem("state") || "";
+  const pincode = localStorage.getItem("pincode") || "";
+  const email = localStorage.getItem("email") || "";
+  const phone = localStorage.getItem("primarycontact") || localStorage.getItem("primary_contact") || "";
+  const description = localStorage.getItem("shodesc") || "";
+
+  const socials = [
+    { name: "facebook", href: localStorage.getItem("facebook") },
+    { name: "instagram", href: localStorage.getItem("instagram") },
+    { name: "twitter", href: localStorage.getItem("twitter") },
+    { name: "snapchat", href: localStorage.getItem("snapchat") },
+    { name: "youtube", href: localStorage.getItem("youtube") },
+    { name: "linkedin", href: localStorage.getItem("linkedin") },
+    { name: "whatsapp", href: localStorage.getItem("WhatsApp") },
+  ].filter((item) => item.href);
+
+  const fullAddress = [address, city, state, pincode].filter(Boolean).join(", ");
+
+  const fetchAndGo = async (type, storageKey, path) => {
+    const business_id = localStorage.getItem("id");
+    try {
+      const res = await axios.post("https://topiko.com/prod/app/getBusinessPolicy.php", { business_id, type });
+      if (res.data?.status === "success") {
+        localStorage.setItem(storageKey, JSON.stringify(res.data.response));
+      }
+    } catch (err) {
+      console.error(`Error fetching ${type} policy:`, err);
+    } finally {
+      navigate(path);
+    }
+  };
+
   return (
     <footer className="footer bg-white text-dark mt-auto pt-5 pb-4">
       <div className="container">
         <div className="row gy-4">
           <div className="col-md-4">
-            <h5 className="fw-bold mb-3 text-dark">Business Details</h5>
+            <h5 className="fw-bold mb-3 text-dark">{businessName}</h5>
             <ul className="list-unstyled footer-list">
-              <li className="d-flex align-items-start gap-2">
-                <Icon name="location" />
-                <span className="text-muted">123 Market Street, Suite 200, City, Country</span>
-              </li>
-              <li className="d-flex align-items-start gap-2">
-                <Icon name="email" />
-                <a className="text-muted text-decoration-none" href="mailto:hello@example.com">
-                  hello@example.com
-                </a>
-              </li>
-              <li className="d-flex align-items-start gap-2">
-                <Icon name="phone" />
-                <a className="text-muted text-decoration-none" href="tel:+1234567890">
-                  +1 (234) 567-890
-                </a>
-              </li>
+              {fullAddress && (
+                <li className="d-flex align-items-start gap-2">
+                  <Icon name="location" />
+                  <span className="text-muted">{fullAddress}</span>
+                </li>
+              )}
+              {email && (
+                <li className="d-flex align-items-start gap-2">
+                  <Icon name="email" />
+                  <a className="text-muted text-decoration-none" href={`mailto:${email}`}>
+                    {email}
+                  </a>
+                </li>
+              )}
+              {phone && (
+                <li className="d-flex align-items-start gap-2">
+                  <Icon name="phone" />
+                  <a className="text-muted text-decoration-none" href={`tel:${phone}`}>
+                    {phone}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -66,58 +112,57 @@ export default function Footer() {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="text-decoration-none text-muted" to="/privacy">
+                <button
+                  type="button"
+                  className="link-button text-muted"
+                  onClick={() => fetchAndGo("Privacy", "privacy_policy_data", "/privacy-policy")}
+                >
                   Privacy Policy
-                </NavLink>
+                </button>
               </li>
               <li>
-                <NavLink className="text-decoration-none text-muted" to="/refunds">
+                <button
+                  type="button"
+                  className="link-button text-muted"
+                  onClick={() => fetchAndGo("Refund", "refund_policy_data", "/return-and-refund")}
+                >
                   Refunds &amp; Returns
-                </NavLink>
+                </button>
               </li>
               <li>
-                <NavLink className="text-decoration-none text-muted" to="/shipping">
+                <button
+                  type="button"
+                  className="link-button text-muted"
+                  onClick={() => fetchAndGo("Shipping", "shipping_policy_data", "/shipping")}
+                >
                   Shipping
-                </NavLink>
+                </button>
               </li>
             </ul>
           </div>
 
           <div className="col-6 col-md-3">
             <h6 className="text-uppercase small fw-semibold mb-3 text-dark">Follow Us</h6>
-            <ul className="list-unstyled footer-list">
-              <li className="d-flex align-items-center gap-2">
-                <Icon name="instagram" />
-                <a className="text-muted text-decoration-none" href="#instagram">
-                  Instagram
-                </a>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Icon name="facebook" />
-                <a className="text-muted text-decoration-none" href="#facebook">
-                  Facebook
-                </a>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Icon name="youtube" />
-                <a className="text-muted text-decoration-none" href="#youtube">
-                  YouTube
-                </a>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Icon name="whatsapp" />
-                <a className="text-muted text-decoration-none" href="#whatsapp">
-                  WhatsApp
-                </a>
-              </li>
-            </ul>
+            {socials.length > 0 ? (
+              <ul className="list-unstyled footer-list">
+                {socials.map((item) => (
+                  <li key={item.name} className="d-flex align-items-center gap-2">
+                    <Icon name={item.name.toLowerCase()} />
+                    <a className="text-muted text-decoration-none" href={item.href} target="_blank" rel="noreferrer">
+                      {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-muted mb-0">No social links available.</p>
+            )}
           </div>
 
           <div className="col-md-3">
             <h6 className="text-uppercase small fw-semibold mb-3 text-dark">Description</h6>
-            <p className="text-muted mb-0">
-              Share a short note about your store, product line, or service promise. Keep it concise and welcoming so
-              visitors know what to expect.
+            <p className="text-muted mb-0 footer-description">
+              {description || "Welcome to our store."}
             </p>
           </div>
         </div>
