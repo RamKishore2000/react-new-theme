@@ -439,6 +439,7 @@ export default function Header() {
             localStorage.setItem("email", details.email || "");
             localStorage.setItem("businessadrees", details.business_address || "");
             localStorage.setItem("city", details.city || "");
+            console.log("Storing city in localStorage:", details.city || "");
             localStorage.setItem("state", details.state || "");
             localStorage.setItem("facebook", details.facebook || "");
             localStorage.setItem("twitter", details.twitter || "");

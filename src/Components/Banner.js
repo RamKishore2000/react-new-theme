@@ -95,7 +95,7 @@ export default function Banner() {
 
   return (
     <section className="banner-swiper bg-light mt-4">
-      <div className="container-fluid px-0">
+      <div className="container">
         <div className="swiper-frame position-relative overflow-hidden rounded-4">
           {loading && (
             <div className="banner-loading d-flex align-items-center justify-content-center">

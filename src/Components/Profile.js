@@ -17,7 +17,11 @@ const SERVICES_PER_PAGE = 10;
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(TABS.PROFILE);
+  const [activeTab, setActiveTab] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    return Object.values(TABS).includes(tab) ? tab : TABS.PROFILE;
+  });
 
   const [orders, setOrders] = useState([]);
   const [orderDetails, setOrderDetails] = useState([]);

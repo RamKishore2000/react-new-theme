@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/Footer.css";
@@ -26,8 +26,7 @@ const Icon = ({ name }) => (
   </svg>
 );
 
-export default function Footer() {
-  const navigate = useNavigate();
+const readFooterData = () => {
   const businessName = localStorage.getItem("business_name") || "Our Business";
   const address =
     localStorage.getItem("businessadrees") ||
@@ -37,7 +36,10 @@ export default function Footer() {
   const state = localStorage.getItem("state") || "";
   const pincode = localStorage.getItem("pincode") || "";
   const email = localStorage.getItem("email") || "";
-  const phone = localStorage.getItem("primarycontact") || localStorage.getItem("primary_contact") || "";
+  const phone =
+    localStorage.getItem("primarycontact") ||
+    localStorage.getItem("primary_contact") ||
+    "";
   const description = localStorage.getItem("shodesc") || "";
 
   const socials = [
@@ -50,7 +52,98 @@ export default function Footer() {
     { name: "whatsapp", href: localStorage.getItem("WhatsApp") },
   ].filter((item) => item.href);
 
-  const fullAddress = [address, city, state, pincode].filter(Boolean).join(", ");
+  return {
+    businessName,
+    address,
+    city,
+    state,
+    pincode,
+    email,
+    phone,
+    description,
+    socials,
+  };
+};
+
+export default function Footer() {
+  const navigate = useNavigate();
+  const [footerData, setFooterData] = useState(() => readFooterData());
+
+  useEffect(() => {
+    let intervalId;
+    let fetched = false;
+    let cancelled = false;
+
+    const fetchFooterBusinessDetails = async (business_id) => {
+      try {
+        const res = await fetch("https://topiko.com/prod/app/wt_getBusinessDetails.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bid: business_id }),
+        });
+        const data = await res.json();
+        const details = data && data.response;
+
+        if (!cancelled && details) {
+          setFooterData({
+            businessName: details.business_name || "Our Business",
+            address: details.business_address || "",
+            city: details.city || "",
+            state: details.state || "",
+            pincode: details.pincode || "",
+            email: details.email || "",
+            phone: details.primary_contact || "",
+            description: details.shopdesc || "",
+            socials: [
+              { name: "facebook", href: details.facebook },
+              { name: "instagram", href: details.instagram },
+              { name: "twitter", href: details.twitter },
+              { name: "snapchat", href: details.snapchat },
+              { name: "youtube", href: details.youtube },
+              { name: "linkedin", href: details.linkedin },
+              { name: "whatsapp", href: details.whatsApp },
+            ].filter((item) => item.href),
+          });
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Footer: error fetching business details", err);
+        }
+      }
+    };
+
+    const tryFetch = () => {
+      const business_id = localStorage.getItem("id");
+      if (business_id && !fetched) {
+        fetched = true;
+        fetchFooterBusinessDetails(business_id);
+        return true;
+      }
+      return false;
+    };
+
+    if (!tryFetch()) {
+      intervalId = setInterval(() => {
+        if (tryFetch()) {
+          clearInterval(intervalId);
+        }
+      }, 300);
+    }
+
+    return () => {
+      cancelled = true;
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, []);
+
+  const fullAddress = [
+    footerData.address,
+    footerData.city,
+    footerData.state,
+    footerData.pincode,
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   const fetchAndGo = async (type, storageKey, path) => {
     const business_id = localStorage.getItem("id");
@@ -71,7 +164,7 @@ export default function Footer() {
       <div className="container">
         <div className="row gy-4">
           <div className="col-md-4">
-            <h5 className="fw-bold mb-3 text-dark">{businessName}</h5>
+            <h5 className="fw-bold mb-3 text-dark">{footerData.businessName}</h5>
             <ul className="list-unstyled footer-list">
               {fullAddress && (
                 <li className="d-flex align-items-start gap-2">
@@ -79,19 +172,19 @@ export default function Footer() {
                   <span className="text-muted">{fullAddress}</span>
                 </li>
               )}
-              {email && (
+              {footerData.email && (
                 <li className="d-flex align-items-start gap-2">
                   <Icon name="email" />
-                  <a className="text-muted text-decoration-none" href={`mailto:${email}`}>
-                    {email}
+                  <a className="text-muted text-decoration-none" href={`mailto:${footerData.email}`}>
+                    {footerData.email}
                   </a>
                 </li>
               )}
-              {phone && (
+              {footerData.phone && (
                 <li className="d-flex align-items-start gap-2">
                   <Icon name="phone" />
-                  <a className="text-muted text-decoration-none" href={`tel:${phone}`}>
-                    {phone}
+                  <a className="text-muted text-decoration-none" href={`tel:${footerData.phone}`}>
+                    {footerData.phone}
                   </a>
                 </li>
               )}
@@ -143,9 +236,9 @@ export default function Footer() {
 
           <div className="col-6 col-md-3">
             <h6 className="text-uppercase small fw-semibold mb-3 text-dark">Follow Us</h6>
-            {socials.length > 0 ? (
+            {footerData.socials.length > 0 ? (
               <ul className="list-unstyled footer-list">
-                {socials.map((item) => (
+                {footerData.socials.map((item) => (
                   <li key={item.name} className="d-flex align-items-center gap-2">
                     <Icon name={item.name.toLowerCase()} />
                     <a className="text-muted text-decoration-none" href={item.href} target="_blank" rel="noreferrer">
@@ -162,7 +255,7 @@ export default function Footer() {
           <div className="col-md-3">
             <h6 className="text-uppercase small fw-semibold mb-3 text-dark">Description</h6>
             <p className="text-muted mb-0 footer-description">
-              {description || "Welcome to our store."}
+              {footerData.description || "Welcome to our store."}
             </p>
           </div>
         </div>

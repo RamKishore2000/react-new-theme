@@ -208,12 +208,12 @@
 }
 
 .order-detail-card {
-  background: #0d0f1a;
-  color: #f5f5f5;
+  background: #f7f9fc;
+  color: #0f172a;
   border-radius: 14px;
   padding: 18px;
-  border: 1px solid #23263a;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e3e7ee;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
   scroll-margin-top: 140px;
 }
 
@@ -232,25 +232,25 @@
 .order-detail-card h6,
 .order-detail-card p,
 .order-detail-card span {
-  color: #f5f5f5;
+  color: #0f172a;
 }
 
 .order-detail-card .text-muted {
-  color: #c3cbe4 !important;
+  color: #6b7280 !important;
 }
 
 .order-detail-card .field-label {
-  color: #c9d2ec;
+  color: #475569;
 }
 
 .order-detail-card .field-value {
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .order-detail-card .status-pill {
-  background: #f2f2f2;
-  color: #1f1f1f !important;
-  border-color: #dcdcdc;
+  background: #f8fafc;
+  color: #0f172a !important;
+  border-color: #e2e8f0;
 }
 
 .order-detail-card .status-pill.status-completed,
@@ -279,8 +279,9 @@
   gap: 12px;
   padding: 10px;
   border-radius: 10px;
-  background: #15192a;
-  border: 1px solid #1f2436;
+  background: #f6f8fb;
+  border: 1px solid #e3e7ee;
+  box-shadow: 0 6px 12px rgba(15, 23, 42, 0.05);
 }
 
 .order-item-thumb {
@@ -288,7 +289,7 @@
   height: 64px;
   overflow: hidden;
   border-radius: 10px;
-  background: #202439;
+  background: #f3f4f6;
 }
 
 .order-item-thumb img {
@@ -297,14 +298,11 @@
   object-fit: cover;
 }
 
-.order-item-body p {
-  color: #d9deef;
-}
-
 .order-item-body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  color: #0f172a;
 }
 
 .nowrap {
@@ -319,7 +317,7 @@
 }
 
 .order-item-qty {
-  color: #c3cbe4;
+  color: #6b7280;
   font-size: 13px;
 }
 

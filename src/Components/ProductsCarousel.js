@@ -239,19 +239,7 @@ export default function ProductsCarousel() {
           }}
           onClick={closeModal}
         >
-          <div
-            className="pc-modal-card"
-            style={{
-              background: "#fff",
-              borderRadius: "16px",
-              maxWidth: "420px",
-              width: "100%",
-              padding: "20px",
-              position: "relative",
-              boxShadow: "0 12px 36px rgba(0,0,0,0.25)",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="pc-modal-card" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
               aria-label="Close"
@@ -297,7 +285,7 @@ export default function ProductsCarousel() {
                       <button
                         key={idx}
                         type="button"
-                        className={`btn btn-sm ${currentIdx === idx ? "btn-primary" : "btn-outline-secondary"}`}
+                        className={`btn btn-sm pc-option-btn ${currentIdx === idx ? "is-active" : ""}`}
                         onClick={() => handleOptionSelect(modalProduct.id, idx)}
                         style={{ minWidth: "90px", textAlign: "center" }}
                       >
@@ -311,12 +299,12 @@ export default function ProductsCarousel() {
 
             <div className="d-flex justify-content-between align-items-center mb-3">
               <span className="fw-bold text-dark">Price</span>
-              <span className="fs-5 fw-bold text-primary">{getSelectedPrice(modalProduct)}</span>
+              <span className="fs-5 fw-bold product-list-price ">{getSelectedPrice(modalProduct)}</span>
             </div>
 
             <button
               type="button"
-              className="btn btn-primary w-100"
+              className="btn pc-add-btn w-100"
               onClick={async () => {
                 await handleAddToCartClick(modalProduct);
                 closeModal();

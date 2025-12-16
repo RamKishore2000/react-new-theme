@@ -39,6 +39,24 @@
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
 }
 
+.pc-add-btn {
+  background: #111827;
+  color: #fff;
+  border: 1px solid #0b1224;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.pc-add-btn:hover {
+  background: #0d142b;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.15);
+  transform: translateY(-1px);
+}
+
+.pc-add-btn:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 576px) {
   .pd-thumb-row {
     display: grid;

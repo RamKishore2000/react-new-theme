@@ -158,7 +158,6 @@ export default function ProductDetails() {
                     {[product?.categoryName, product?.subCategoryName].filter(Boolean).join(" / ")}
                   </p>
                   <h3 className="fw-bold mb-2">{product?.title}</h3>
-                  {product?.description && <p className="text-muted mb-3">{product.description}</p>}
                 </div>
 
                 {product?.productPrice && product.productPrice.length > 0 && (() => {
@@ -171,7 +170,7 @@ export default function ProductDetails() {
                           <button
                             key={idx}
                             type="button"
-                            className={`btn btn-sm ${currentIdx === idx ? "btn-primary" : "btn-outline-secondary"}`}
+                            className={`btn btn-sm pc-option-btn ${currentIdx === idx ? "is-active" : ""}`}
                             onClick={() =>
                               setSelectedIndexes((prev) => ({
                                 ...prev,
@@ -194,13 +193,20 @@ export default function ProductDetails() {
                 </div>
 
                 <div className="d-flex flex-column gap-2">
-                  <button type="button" className="btn btn-primary" onClick={handleAddToCart}>
+                  <button type="button" className="btn pc-add-btn" onClick={handleAddToCart}>
                     {cartProducts.some((item) => item.id === product?.id) ? "Added already" : "Add to cart"}
                   </button>
                   <button type="button" className="btn btn-outline-secondary">
                     Buy now
                   </button>
                 </div>
+
+                {product?.description && (
+                  <div
+                    className="text-muted"
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  />
+                )}
               </div>
             </div>
           )}

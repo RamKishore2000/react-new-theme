@@ -222,12 +222,22 @@ export default function TrendingServices() {
     }
   };
 
+  const handleContactForPrice = (e) => {
+    e.preventDefault();
+    const phone = localStorage.getItem("primarycontact") || localStorage.getItem("primary_contact");
+    if (phone) {
+      window.location.href = `tel:${phone}`;
+    } else {
+      setToast({ show: true, message: "Contact number not available.", type: "error" });
+    }
+  };
+
   if (!products?.length) return null;
 
   return (
     <>
     {products.length > 0 && (
-    <section className="trending-services p-4 " style={{ marginBottom: "50px",backgroundColor:"#f7f1e7" }}>
+    <section className="trending-services " style={{ marginBottom: "50px",backgroundColor:"#f7f1e7" }}>
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
           <div className="d-flex justify-content-center align-items-center" style={{ textAlign: "center" }}>
@@ -301,7 +311,7 @@ export default function TrendingServices() {
                   <button
                     type="button"
                     className="btn carousel-cta product-list-cta"
-                    onClick={(e) => openModal(e, product)}
+                    onClick={(e) => (isPriceValid ? openModal(e, product) : handleContactForPrice(e))}
                   >
                     {isPriceValid ? "Book now" : "Ask for price"}
                   </button>

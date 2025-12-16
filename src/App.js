@@ -11,11 +11,10 @@ import { CartProvider } from "./Components/CartContext";
 import Cart from "./Components/Cart";
 import Contact from "./Components/Contact";
 import About from "./Components/About";
+import Checkout from "./Components/Checkout";
 import PrivacyPolicy from "./Components/PrivacyPolicy";
 import RefundPolicy from "./Components/RefundPolicy";
 import ShippingPolicy from "./Components/ShippingPolicy";
-
-
 
 function App() {
   return (
@@ -36,6 +35,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/return-and-refund" element={<RefundPolicy />} />
             <Route path="/shipping" element={<ShippingPolicy />} />

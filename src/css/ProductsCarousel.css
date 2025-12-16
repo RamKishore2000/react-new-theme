@@ -164,6 +164,46 @@
   cursor: not-allowed;
 }
 
+.pc-modal-card {
+  background: #ffffff;
+  border-radius: 0;
+  max-width: 420px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e6e9ef;
+}
+
+.pc-option-btn {
+  background: #f8fafc;
+  color: #1f2937;
+  border: 1.5px solid #d1d5db;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.pc-option-btn.is-active,
+.pc-option-btn:hover {
+  background: linear-gradient(135deg, #e8eef7, #f4f7fb);
+  color: #0f172a;
+  border-color: #3b82f6;
+}
+
+.pc-add-btn {
+  background: linear-gradient(135deg, #efe3d1, #f7f1e7);
+  color: #2a3426;
+  border: 1.5px solid #4b5840;
+  font-weight: 700;
+  padding: 0.85rem 1rem;
+  border-radius: 0;
+}
+
+.pc-add-btn:hover {
+  background: linear-gradient(135deg, #e7d7be, #efe3d1);
+  color: #1e261d;
+}
+
 @media (max-width: 767.98px) {
   .products-swiper {
     grid-auto-columns: calc(50% - 0.65rem);

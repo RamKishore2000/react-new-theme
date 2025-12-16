@@ -27,14 +27,14 @@ const normalizeService = (item) => ({
   imgs: item?.imgs || [],
 });
 
-const formatPrice = (value) => {
-  if (value === null || value === undefined || value === "" || value === "0" || value === "0.00") {
-    return "Ask for price";
-  }
-  const num = Number(value);
-  if (Number.isNaN(num)) return value;
-  return `Rs.${num.toLocaleString("en-IN")}`;
-};
+  const formatPrice = (value) => {
+    if (value === null || value === undefined || value === "" || value === "0" || value === "0.00") {
+      return "Ask for price";
+    }
+    const num = Number(value);
+    if (Number.isNaN(num)) return value;
+    return `Rs.${num.toLocaleString("en-IN")}`;
+  };
 
 export default function ServiceDetails() {
   const { serviceSlug = "" } = useParams();
@@ -294,15 +294,19 @@ export default function ServiceDetails() {
   ].filter((img) => img?.imgSrc);
 
   const currentIdx = selectedIndexes[service.id] || 0;
-  const getSelectedPrice = () => {
+  const getSelectedPriceValue = () => {
     const priceItem = service?.productPrice?.[currentIdx];
-    if (!priceItem) return formatPrice(service?.price || service?.mrp);
+    if (!priceItem) return service?.price || service?.mrp;
     const value =
       priceItem.discount_price !== "0.00" && priceItem.discount_price !== ""
         ? priceItem.discount_price
         : priceItem.mrp;
-    return formatPrice(value);
+    return value;
   };
+
+  const selectedPriceValue = getSelectedPriceValue();
+  const isPriceValid = Number(selectedPriceValue) > 0;
+  const displayPrice = formatPrice(selectedPriceValue);
 
   return (
     <>
@@ -340,7 +344,12 @@ export default function ServiceDetails() {
                       {[service.categoryName, service.subCategoryName].filter(Boolean).join(" / ")}
                     </p>
                     <h3 className="fw-bold mb-2">{service.title}</h3>
-                    {service.description && <p className="text-muted mb-3">{service.description}</p>}
+                    {service.description && (
+                      <div
+                        className="text-muted mb-3"
+                        dangerouslySetInnerHTML={{ __html: service.description }}
+                      />
+                    )}
 
                     {service.productPrice && service.productPrice.length > 0 && (
                       <div className="mb-3">
@@ -368,19 +377,22 @@ export default function ServiceDetails() {
 
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <span className="fw-bold text-dark">Price</span>
-                      <span className="fs-5 fw-bold text-primary">{getSelectedPrice()}</span>
+                      <span className="fs-5 fw-bold text-primary">{displayPrice}</span>
                     </div>
 
                     <div className="d-flex flex-column flex-sm-row gap-2">
-                      <button type="button" className="btn btn-primary flex-fill" onClick={openModal}>
-                        Book now
-                      </button>
-                      <a
-                        className="btn btn-outline-secondary flex-fill"
-                        href={`tel:${localStorage.getItem("primarycontact") || ""}`}
-                      >
-                        Ask for price
-                      </a>
+                      {isPriceValid ? (
+                        <button type="button" className="btn btn-primary flex-fill" onClick={openModal}>
+                          Book now
+                        </button>
+                      ) : (
+                        <a
+                          className="btn btn-primary flex-fill"
+                          href={`tel:${localStorage.getItem("primarycontact") || ""}`}
+                        >
+                          Ask for price
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

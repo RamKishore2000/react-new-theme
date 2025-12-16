@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../css/BusinessDescription.css";
 
 export default function BusinessDescription() {
@@ -15,15 +16,15 @@ export default function BusinessDescription() {
             </p>
             <div className="d-grid gap-2 text-secondary small">
               <div className="d-flex gap-2">
-                <span className="bullet">•</span>
+                <span className="bullet">-</span>
                 <span>Tailored bundles for teams, creators, and smart homes.</span>
               </div>
               <div className="d-flex gap-2">
-                <span className="bullet">•</span>
-                <span>End-to-end support—delivery, setup, and training.</span>
+                <span className="bullet">-</span>
+                <span>End-to-end support - delivery, setup, and training.</span>
               </div>
               <div className="d-flex gap-2">
-                <span className="bullet">•</span>
+                <span className="bullet">-</span>
                 <span>Trusted vendors, fast fulfillment, and transparent policies.</span>
               </div>
             </div>
@@ -32,28 +33,36 @@ export default function BusinessDescription() {
             <div className="desc-card rounded-4 p-4">
               <div className="row g-3">
                 <div className="col-sm-6">
-                  <div className="mini-tile">
-                    <h5 className="fw-bold mb-1">24/7</h5>
-                    <p className="text-secondary small mb-0">Support availability</p>
-                  </div>
+                  <Link to="/about" className="tile-link">
+                    <div className="mini-tile">
+                      <h5 className="fw-bold mb-1">About Us</h5>
+                      <p className="text-secondary small mb-0">Learn how we source and serve.</p>
+                    </div>
+                  </Link>
                 </div>
                 <div className="col-sm-6">
-                  <div className="mini-tile">
-                    <h5 className="fw-bold mb-1">4.8★</h5>
-                    <p className="text-secondary small mb-0">Customer rating</p>
-                  </div>
+                  <Link to="/contact" className="tile-link">
+                    <div className="mini-tile">
+                      <h5 className="fw-bold mb-1">Contact Us</h5>
+                      <p className="text-secondary small mb-0">Questions? Reach our team.</p>
+                    </div>
+                  </Link>
                 </div>
                 <div className="col-sm-6">
-                  <div className="mini-tile">
-                    <h5 className="fw-bold mb-1">72h</h5>
-                    <p className="text-secondary small mb-0">Avg. installation window</p>
-                  </div>
+                  <Link to="/privacy-policy" className="tile-link">
+                    <div className="mini-tile">
+                      <h5 className="fw-bold mb-1">Privacy Policy</h5>
+                      <p className="text-secondary small mb-0">How we handle your data.</p>
+                    </div>
+                  </Link>
                 </div>
                 <div className="col-sm-6">
-                  <div className="mini-tile">
-                    <h5 className="fw-bold mb-1">200+</h5>
-                    <p className="text-secondary small mb-0">Projects delivered</p>
-                  </div>
+                  <Link to="/shipping" className="tile-link">
+                    <div className="mini-tile">
+                      <h5 className="fw-bold mb-1">Shipping</h5>
+                      <p className="text-secondary small mb-0">Delivery, returns, and timelines.</p>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>

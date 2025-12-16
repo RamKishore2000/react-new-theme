@@ -22,3 +22,9 @@
   font-weight: bold;
   line-height: 1;
 }
+
+.tile-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
