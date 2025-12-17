@@ -172,7 +172,7 @@ export default function MobileMenu({ open, onClose }) {
           <h5 className="mb-0">Menu</h5>
           <button
             type="button"
-            className="btn btn-link text-dark p-0 fs-4"
+            className="mobile-close-btn"
             aria-label="Close menu"
             onClick={onClose}
           >
@@ -185,85 +185,89 @@ export default function MobileMenu({ open, onClose }) {
             Home
           </NavLink>
 
-          <div className="mobile-menu-accordion">
-            <button type="button" className="mobile-menu-toggle" onClick={() => setOpenProducts((p) => !p)}>
-              <span>Products</span>
-              <span className="mega-accordion-icon">{openProducts ? "-" : "+"}</span>
-            </button>
-            {openProducts && (
-              <div className="mobile-menu-children">
-                {productCategories.map((category) => {
-                  const isOpen = openProductCat === category.id;
-                  return (
-                    <div key={category.id} className="mega-accordion-item">
-                      <button
-                        type="button"
-                        className="mega-accordion-toggle"
-                        onClick={() => setOpenProductCat(isOpen ? "" : category.id)}
-                      >
-                        <span>{category.label}</span>
-                        <span className="mega-accordion-icon">{isOpen ? "-" : "+"}</span>
-                      </button>
-                      {isOpen && (
-                        <div className="mega-accordion-body">
-                          {category.items.map((item) => (
-                            <NavLink
-                              key={item.to}
-                              className="mega-link text-decoration-none"
-                              to={`/product-list/${toSlug(category.label)}/${toSlug(item.label)}`}
-                              onClick={onClose}
-                            >
-                              {item.label}
-                            </NavLink>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          {productCategories.length > 0 && (
+            <div className="mobile-menu-accordion">
+              <button type="button" className="mobile-menu-toggle" onClick={() => setOpenProducts((p) => !p)}>
+                <span>Products</span>
+                <span className="mega-accordion-icon">{openProducts ? "-" : "+"}</span>
+              </button>
+              {openProducts && (
+                <div className="mobile-menu-children">
+                  {productCategories.map((category) => {
+                    const isOpen = openProductCat === category.id;
+                    return (
+                      <div key={category.id} className="mega-accordion-item">
+                        <button
+                          type="button"
+                          className="mega-accordion-toggle"
+                          onClick={() => setOpenProductCat(isOpen ? "" : category.id)}
+                        >
+                          <span>{category.label}</span>
+                          <span className="mega-accordion-icon">{isOpen ? "-" : "+"}</span>
+                        </button>
+                        {isOpen && (
+                          <div className="mega-accordion-body">
+                            {category.items.map((item) => (
+                              <NavLink
+                                key={item.to}
+                                className="mega-link text-decoration-none"
+                                to={`/product-list/${toSlug(category.label)}/${toSlug(item.label)}`}
+                                onClick={onClose}
+                              >
+                                {item.label}
+                              </NavLink>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
 
-          <div className="mobile-menu-accordion">
-            <button type="button" className="mobile-menu-toggle" onClick={() => setOpenServices((p) => !p)}>
-              <span>Services</span>
-              <span className="mega-accordion-icon">{openServices ? "-" : "+"}</span>
-            </button>
-            {openServices && (
-              <div className="mobile-menu-children">
-                {serviceCategories.map((category) => {
-                  const isOpen = openServiceCat === category.id;
-                  return (
-                    <div key={category.id} className="mega-accordion-item">
-                      <button
-                        type="button"
-                        className="mega-accordion-toggle"
-                        onClick={() => setOpenServiceCat(isOpen ? "" : category.id)}
-                      >
-                        <span>{category.label}</span>
-                        <span className="mega-accordion-icon">{isOpen ? "-" : "+"}</span>
-                      </button>
-                      {isOpen && (
-                        <div className="mega-accordion-body">
-                          {category.items.map((item) => (
-                            <NavLink
-                              key={item.to}
-                              className="mega-link text-decoration-none"
-                              to={`/service-list/${toSlug(category.label)}/${toSlug(item.label)}`}
-                              onClick={onClose}
-                            >
-                              {item.label}
-                            </NavLink>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          {serviceCategories.length > 0 && (
+            <div className="mobile-menu-accordion">
+              <button type="button" className="mobile-menu-toggle" onClick={() => setOpenServices((p) => !p)}>
+                <span>Services</span>
+                <span className="mega-accordion-icon">{openServices ? "-" : "+"}</span>
+              </button>
+              {openServices && (
+                <div className="mobile-menu-children">
+                  {serviceCategories.map((category) => {
+                    const isOpen = openServiceCat === category.id;
+                    return (
+                      <div key={category.id} className="mega-accordion-item">
+                        <button
+                          type="button"
+                          className="mega-accordion-toggle"
+                          onClick={() => setOpenServiceCat(isOpen ? "" : category.id)}
+                        >
+                          <span>{category.label}</span>
+                          <span className="mega-accordion-icon">{isOpen ? "-" : "+"}</span>
+                        </button>
+                        {isOpen && (
+                          <div className="mega-accordion-body">
+                            {category.items.map((item) => (
+                              <NavLink
+                                key={item.to}
+                                className="mega-link text-decoration-none"
+                                to={`/service-list/${toSlug(category.label)}/${toSlug(item.label)}`}
+                                onClick={onClose}
+                              >
+                                {item.label}
+                              </NavLink>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
 
           <NavLink className="mobile-menu-link" to="/about" onClick={onClose}>
             About
@@ -276,3 +280,4 @@ export default function MobileMenu({ open, onClose }) {
     </div>
   );
 }
+

@@ -237,7 +237,7 @@ export default function TrendingServices() {
   return (
     <>
     {products.length > 0 && (
-    <section className="trending-services " style={{ marginBottom: "50px",backgroundColor:"#f7f1e7" }}>
+    <section className="trending-services py-5 " style={{ marginBottom: "50px",backgroundColor:"#f7f1e7" }}>
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
           <div className="d-flex justify-content-center align-items-center" style={{ textAlign: "center" }}>

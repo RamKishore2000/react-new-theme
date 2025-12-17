@@ -105,7 +105,6 @@ export default function Header() {
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState(() => localStorage.getItem("WhatsApp") || "");
   const [userId, setUserId] = useState(() => localStorage.getItem("user_id"));
   const hasFetchedBusiness = useRef(false);
   const hasFetchedProductMenus = useRef(false);
@@ -449,7 +448,6 @@ export default function Header() {
             localStorage.setItem("youtube", details.youtube || "");
             localStorage.setItem("linkedin", details.linkedin || "");
             localStorage.setItem("WhatsApp", details.whatsApp || "");
-            setWhatsappNumber(details.whatsApp || "");
             localStorage.setItem("latitude", details.latitude || "");
             localStorage.setItem("longitude", details.longitude || "");
             localStorage.setItem("pincode", details.pincode || "");
@@ -528,8 +526,7 @@ export default function Header() {
   }, [businessId]);
 
   return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
       <div className="container">
         {/* Mobile bar */}
         <div className="d-flex d-lg-none align-items-center justify-content-between w-100 py-2">
@@ -1031,37 +1028,6 @@ export default function Header() {
           </div>
         </div>
       )}
-      </nav>
-      {whatsappNumber ? (
-        <a
-          href={`https://wa.me/${whatsappNumber}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="position-fixed d-inline-flex align-items-center justify-content-center rounded-circle shadow"
-          style={{
-            right: "20px",
-            bottom: "20px",
-            width: "52px",
-            height: "52px",
-            backgroundColor: "#25D366",
-            color: "white",
-            zIndex: 1200,
-            textDecoration: "none",
-          }}
-          aria-label="Chat on WhatsApp"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            width="22"
-            height="22"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 8.023.123 7.88 7.88 0 0 0 .777 3.23a7.9 7.9 0 0 0 .55 8.268L.14 15.885l4.486-1.173a7.87 7.87 0 0 0 3.389.79h.003a7.882 7.882 0 0 0 7.583-5.513 7.9 7.9 0 0 0-2-7.663ZM8.017 14.3h-.002a6.54 6.54 0 0 1-3.34-.918l-.24-.143-2.663.696.71-2.598-.157-.267A6.54 6.54 0 0 1 8.02 1.545a6.523 6.523 0 0 1 4.617 11.14 6.48 6.48 0 0 1-4.62 1.615Zm3.56-4.897c-.195-.098-1.153-.57-1.333-.636-.18-.067-.312-.099-.445.098-.133.195-.512.636-.627.767-.116.128-.232.145-.427.048-.195-.099-.823-.303-1.568-.967-.58-.52-.97-1.164-1.085-1.36-.116-.195-.013-.3.086-.396.088-.087.195-.225.293-.338.098-.112.13-.195.195-.325.065-.128.033-.24-.017-.338-.048-.098-.445-1.074-.61-1.47-.16-.384-.323-.332-.445-.338-.115-.006-.247-.007-.38-.007a.73.73 0 0 0-.53.246c-.18.195-.693.677-.693 1.65 0 .973.71 1.915.81 2.049.098.128 1.394 2.127 3.383 2.984.473.205.84.327 1.127.418.474.151.907.129 1.25.078.381-.057 1.153-.47 1.316-.924.162-.455.162-.85.113-.925-.048-.085-.176-.137-.37-.234Z" />
-          </svg>
-        </a>
-      ) : null}
-    </>
+    </nav>
   );
 }

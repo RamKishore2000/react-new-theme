@@ -89,6 +89,8 @@ export default function ServiceCategories() {
 
   if (!categories.length) return null;
 
+  const isCentered = categories.length <= 5;
+
   const formatCount = (value) => {
     if (value === null || value === undefined || value === "") return "Explore →";
     const num = Number(value);
@@ -106,29 +108,31 @@ export default function ServiceCategories() {
             <p className="text-uppercase text-muted small mb-1">Services</p>
             <h3 className="fw-bold mb-0">Browse by service category</h3>
           </div>
-          <div className="d-flex align-items-center gap-2">
-            <button
-              type="button"
-              className="cat-nav-btn"
-              aria-label="Previous service categories"
-              onClick={() => handleScroll(-1)}
-              disabled={atStart}
-            >
-              {"<"}
-            </button>
-            <button
-              type="button"
-              className="cat-nav-btn"
-              aria-label="Next service categories"
-              onClick={() => handleScroll(1)}
-              disabled={atEnd}
-            >
-              {">"}
-            </button>
-          </div>
+          {categories.length > 5 && (
+            <div className="d-flex align-items-center gap-2">
+              <button
+                type="button"
+                className="cat-nav-btn"
+                aria-label="Previous service categories"
+                onClick={() => handleScroll(-1)}
+                disabled={atStart}
+              >
+                {"<"}
+              </button>
+              <button
+                type="button"
+                className="cat-nav-btn"
+                aria-label="Next service categories"
+                onClick={() => handleScroll(1)}
+                disabled={atEnd}
+              >
+                {">"}
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="categories-swiper" ref={scrollRef}>
+        <div className={`categories-swiper ${isCentered ? "is-centered" : ""}`} ref={scrollRef}>
           {categories.map((item) => (
             <Link
               key={item.id}

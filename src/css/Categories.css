@@ -129,3 +129,13 @@
     grid-auto-columns: calc(50% - 0.5rem);
   }
 }
+
+@media (min-width: 768px) {
+  .categories-swiper.is-centered {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 230px));
+    justify-content: center;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+}

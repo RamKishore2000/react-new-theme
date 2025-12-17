@@ -32,6 +32,23 @@
   flex-direction: column;
 }
 
+.mobile-close-btn {
+  border: none;
+  background: #f3f4f6;
+  color: #111827;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-close-btn:hover {
+  background: #e5e7eb;
+  color: #0f172a;
+}
+
 .mobile-menu-links {
   display: flex;
   flex-direction: column;
@@ -47,6 +64,8 @@
   padding: 0.65rem 0;
   color: #212529;
   border-bottom: 1px solid #f1f3f5;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .mobile-menu-accordion {
@@ -62,7 +81,8 @@
   background: transparent;
   border: none;
   padding: 0.65rem 0;
-  font-weight: 600;
+  font-weight: 700;
+  color: #111827;
 }
 
 .mobile-menu-children {
@@ -70,6 +90,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  font-weight: 500;
 }
 
 .mobile-panel {
@@ -251,5 +272,19 @@
   .account-toast {
     width: calc(100% - 1.5rem);
     margin-top: 56px;
+  }
+}
+
+.brand-name-trunc {
+  max-width: 140px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 992px) {
+  .brand-name-trunc {
+    max-width: none;
   }
 }

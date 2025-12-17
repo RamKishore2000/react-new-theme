@@ -6,7 +6,8 @@
 }
 
 .cart-shell {
-  margin-top: -40px;
+  margin-top: 0;
+  padding-top: 24px;
   margin-bottom: 40px;
 }
 
@@ -14,6 +15,11 @@
   border: none;
   border-radius: 18px;
   overflow: hidden;
+}
+
+.cart-summary-sticky {
+  top: 160px;
+  z-index: auto;
 }
 
 .table-page-cart {

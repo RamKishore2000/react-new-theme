@@ -142,7 +142,7 @@ const Cart = () => {
             </div>
             {cartProducts.length > 0 && (
               <div className="col-xl-4">
-                <div className="card cart-card shadow-sm sticky-top" style={{ top: "110px" }}>
+                <div className="card cart-card shadow-sm sticky-top cart-summary-sticky">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <h5 className="mb-0">Order Summary</h5>

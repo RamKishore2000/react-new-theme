@@ -96,6 +96,8 @@ export default function Categories() {
     return null;
   }
 
+  const isCentered = categories.length <= 5;
+
   const formatCount = (value) => {
     if (value === null || value === undefined || value === "") return "Items";
     const num = Number(value);
@@ -113,29 +115,31 @@ export default function Categories() {
             <p className="text-uppercase text-muted small mb-1">Browse</p>
             <h3 className="fw-bold mb-0">Shop by category</h3>
           </div>
-          <div className="d-flex align-items-center gap-2">
-            <button
-              type="button"
-              className="cat-nav-btn"
-              aria-label="Previous categories"
-              onClick={() => handleScroll(-1)}
-              disabled={atStart}
-            >
-              {"<"}
-            </button>
-            <button
-              type="button"
-              className="cat-nav-btn"
-              aria-label="Next categories"
-              onClick={() => handleScroll(1)}
-              disabled={atEnd}
-            >
-              {">"}
-            </button>
-          </div>
+          {categories.length > 5 && (
+            <div className="d-flex align-items-center gap-2">
+              <button
+                type="button"
+                className="cat-nav-btn"
+                aria-label="Previous categories"
+                onClick={() => handleScroll(-1)}
+                disabled={atStart}
+              >
+                {"<"}
+              </button>
+              <button
+                type="button"
+                className="cat-nav-btn"
+                aria-label="Next categories"
+                onClick={() => handleScroll(1)}
+                disabled={atEnd}
+              >
+                {">"}
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="categories-swiper" ref={scrollRef}>
+        <div className={`categories-swiper ${isCentered ? "is-centered" : ""}`} ref={scrollRef}>
           {categories.map((item) => {
             const slug = item.name
               .toLowerCase()

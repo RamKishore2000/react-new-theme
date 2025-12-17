@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/BusinessDescription.css";
 
 export default function BusinessDescription() {
+  const [shopDesc, setShopDesc] = useState("");
+
+  useEffect(() => {
+    const desc = localStorage.getItem("shodesc") || "";
+    setShopDesc(desc);
+  }, []);
+
   return (
     <section className="business-desc py-5">
       <div className="container">
         <div className="row g-4 align-items-center">
           <div className="col-lg-6">
-            <p className="text-uppercase text-muted small mb-2">Our promise</p>
-            <h3 className="fw-bold mb-3">Built for modern commerce</h3>
-            <p className="text-secondary mb-3">
-              We pair curated products with services that launch quickly, scale smoothly, and stay reliable. Swap this
-              text with your own story to highlight what makes your business different.
-            </p>
-            <div className="d-grid gap-2 text-secondary small">
-              <div className="d-flex gap-2">
-                <span className="bullet">-</span>
-                <span>Tailored bundles for teams, creators, and smart homes.</span>
-              </div>
-              <div className="d-flex gap-2">
-                <span className="bullet">-</span>
-                <span>End-to-end support - delivery, setup, and training.</span>
-              </div>
-              <div className="d-flex gap-2">
-                <span className="bullet">-</span>
-                <span>Trusted vendors, fast fulfillment, and transparent policies.</span>
-              </div>
+            <h3 className="fw-bold mb-3">About our store</h3>
+            <div className="desc-card rounded-4 p-4">
+              <div
+                className="text-secondary mb-0"
+                style={{ maxHeight: "240px", overflowY: "auto" }}
+                dangerouslySetInnerHTML={{
+                  __html: shopDesc || "Store description will appear here once provided.",
+                }}
+              ></div>
             </div>
           </div>
           <div className="col-lg-6">

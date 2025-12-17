@@ -7,6 +7,7 @@ import ProductsCarousel from './ProductsCarousel';
 import BusinessDescription from './BusinessDescription';
 import ServiceCategories from './ServiceCategories';
 import TrendingServices from './TrendingServices';
+import Catalogues from './Catalogues';
 
 const Home = () => {
   return (
@@ -21,9 +22,7 @@ const Home = () => {
           <ProductsCarousel />
           <ServiceCategories />
           <TrendingServices />
-          <div className="container py-5">
-           
-          </div>
+          <Catalogues />
         </div>
       </main>
       <Footer />
